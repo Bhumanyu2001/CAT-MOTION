@@ -10,7 +10,7 @@ export default function PreviewArea() {
   };
 
   return (
-    <div className="flex-none h-full overflow-visible p-2 relative">
+    <div className="flex-none h-full overflow-visible p-2 absolute">
       {isVisible && (
         <CatSprite
           x={position.x}

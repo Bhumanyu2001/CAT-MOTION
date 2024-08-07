@@ -24,7 +24,8 @@ export default function Sidebar() {
   const [increaseSizeby, setIncreaseSizeby] = useState(10);
 
   return (
-    <div className="w-70 h-full overflow-y-auto flex flex-col items-start p-4 border-r border-gray-300 shadow-lg">
+    <div className=" h-full p-2 bg-white relative z-10">
+      <div className="w-70 h-full overflow-y-auto flex flex-col items-start p-4 border-r border-gray-300 shadow-lg relative z-50" >
       <div className="p-3 bg-blue-100 shadow-inner mb-4">
         <div className="font-bold text-lg mt-4 mb-4">Motion</div>
         <div className="flex flex-row items-center">
@@ -161,6 +162,7 @@ export default function Sidebar() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

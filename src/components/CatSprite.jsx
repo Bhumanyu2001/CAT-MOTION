@@ -4,7 +4,8 @@ import Draggable from "react-draggable";
 export default function CatSprite({ x, y, rotation, message, size }) {
   return (
     <Draggable defaultPosition={{ x, y }}>
-      <div style={{ position: "relative" }}>
+      <div style={{ position: "relative", left: x,
+        top: y, transform: `rotate(${rotation}deg) scale(${size / 100})` }}>
         {message && (
           <div
             style={{
@@ -75,8 +76,7 @@ export default function CatSprite({ x, y, rotation, message, size }) {
       xmlSpace="preserve"
       style={{
         position: 'absolute',
-        left: x,
-        top: y,
+        
         transform: `rotate(${rotation}deg) scale(${size / 100})`,
         transition: 'transform 0.1s ease'
     
