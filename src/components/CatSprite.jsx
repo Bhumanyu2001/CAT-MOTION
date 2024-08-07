@@ -1,59 +1,71 @@
 import React from "react";
+import Draggable from "react-draggable";
 
-export default function CatSprite({x,y , rotation , message}) {
-  return ( 
-    <div style={{ position: 'relative' }}>
-    {message && (
-      <div style={{ 
-        position: 'absolute', 
-        left: x + 120, 
-        top: y - 40, 
-        whiteSpace: 'nowrap',
-        backgroundColor: 'white',
-        border: '2px solid black',
-        borderRadius: '10px',
-        padding: '5px 10px',
-        maxWidth: '150px',
-        height: '60px',
-        textAlign: 'center',
-        zIndex: 1
-      }}>
-        <div style={{ 
-          position: 'relative', 
-          backgroundColor: 'white', 
-          width: '30px', 
-          height: '30px', 
-          border: '2px solid black', 
-          borderRadius: '50%', 
-          top: '20px', 
-          left: '-40px', 
-          zIndex: -1 
-        }}></div>
-        <div style={{ 
-          position: 'relative', 
-          backgroundColor: 'white', 
-          width: '20px', 
-          height: '20px', 
-          border: '2px solid black', 
-          borderRadius: '50%', 
-          top: '20px', 
-          left: '-50px', 
-          zIndex: -1 
-        }}></div>
-        <div style={{ 
-          position: 'relative', 
-          backgroundColor: 'white', 
-          width: '10px', 
-          height: '10px', 
-          border: '2px solid black', 
-          borderRadius: '50%', 
-          top: '20px', 
-          left: '-60px', 
-          zIndex: -1 
-        }}></div>
-       <div style={{ position: 'relative', marginTop: '-50px'}}> {message}</div>
-      </div>
-    )}
+export default function CatSprite({ x, y, rotation, message, size }) {
+  return (
+    <Draggable defaultPosition={{ x, y }}>
+      <div style={{ position: "relative" }}>
+        {message && (
+          <div
+            style={{
+              position: "absolute",
+              left: 120,
+              top: -40,
+              whiteSpace: "nowrap",
+              backgroundColor: "white",
+              border: "2px solid black",
+              borderRadius: "10px",
+              padding: "5px 10px",
+              maxWidth: "150px",
+              height: "60px",
+              textAlign: "center",
+              zIndex: 1,
+            }}
+          >
+            <div
+              style={{
+                position: "relative",
+                backgroundColor: "white",
+                width: "30px",
+                height: "30px",
+                border: "2px solid black",
+                borderRadius: "50%",
+                top: "20px",
+                left: "-40px",
+                zIndex: -1,
+              }}
+            ></div>
+            <div
+              style={{
+                position: "relative",
+                backgroundColor: "white",
+                width: "20px",
+                height: "20px",
+                border: "2px solid black",
+                borderRadius: "50%",
+                top: "20px",
+                left: "-50px",
+                zIndex: -1,
+              }}
+            ></div>
+            <div
+              style={{
+                position: "relative",
+                backgroundColor: "white",
+                width: "10px",
+                height: "10px",
+                border: "2px solid black",
+                borderRadius: "50%",
+                top: "20px",
+                left: "-60px",
+                zIndex: -1,
+              }}
+            ></div>
+            <div style={{ position: "relative", marginTop: "-50px" }}>
+              {message}
+            </div>
+          </div>
+        )}
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="95.17898101806641"
@@ -65,8 +77,9 @@ export default function CatSprite({x,y , rotation , message}) {
         position: 'absolute',
         left: x,
         top: y,
-        transform: `rotate(${rotation}deg)`,
-        transition: 'transform 0.1s ease',
+        transform: `rotate(${rotation}deg) scale(${size / 100})`,
+        transition: 'transform 0.1s ease'
+    
       }}
 
     >
@@ -241,5 +254,6 @@ export default function CatSprite({x,y , rotation , message}) {
       </g>
     </svg>
     </div>
+    </Draggable>
   );
 }

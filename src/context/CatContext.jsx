@@ -7,20 +7,35 @@ export const CatProvider = ({ children }) => {
   const [rotation, setRotation] = useState(0);
   const [message, setMessage] = useState("");
   const [actionHistory, setActionHistory] = useState([]);
+  const [isVisible, setIsVisible] = useState(true);
+  const [catSize, setCatSize] = useState(100);
 
   const addToHistory = (type, params) => {
     setActionHistory((prev) => [...prev, { type, params }]);
   };
 
-  const moveCat = () => {
+  const moveCat = (num) => {
     const radians = (rotation * Math.PI) / 180;
     const newPosition = {
-      x: position.x + 10 * Math.cos(radians),
-      y: position.y + 10 * Math.sin(radians),
+      x: position.x + num * Math.cos(radians),
+      y: position.y + num * Math.sin(radians),
     };
     setPosition(newPosition);
     addToHistory("move", newPosition);
   };
+
+  const moveToInitialPosition = () => {
+    setPosition({ x: 0, y: 0 });
+    addToHistory("move", { x: 0, y: 0 });
+    setRotation(0);
+    addToHistory("rotate", 0);
+    setMessage("");
+    addToHistory("say", "");
+    addToHistory("think", "");
+    setIsVisible(true);
+    setCatSize(100);
+    addToHistory("setSizePercentage", 100);
+  }
 
   const rotateCat = (angle) => {
     const newRotation = rotation + angle;
@@ -28,11 +43,11 @@ export const CatProvider = ({ children }) => {
     addToHistory("rotate", { rotation: newRotation });
   };
 
-  const moveCatBack = () => {
+  const moveCatBack = (num) => {
     const radians = (rotation * Math.PI) / 180;
     const newPosition = {
-      x: position.x - 10 * Math.cos(radians),
-      y: position.y - 10 * Math.sin(radians),
+      x: position.x - num * Math.cos(radians),
+      y: position.y - num * Math.sin(radians),
     };
     setPosition(newPosition);
     addToHistory("moveBack", newPosition);
@@ -47,6 +62,7 @@ export const CatProvider = ({ children }) => {
   };
 
   const say = (text) => {
+    console.log("say", text);
     setMessage(text);
     addToHistory("say", { message: text, duration: 2000 });
     setTimeout(() => setMessage(""), 2000);
@@ -106,6 +122,19 @@ export const CatProvider = ({ children }) => {
     }
   };
   
+  const toggleVisibility = () => {
+    setIsVisible((prev) => !prev); // Toggle visibility state
+  };
+
+  const increaseSize = (num) => {
+    setCatSize((prevSize) => Math.max(prevSize + num, 0)); // Prevent size from going below 0
+    addToHistory("increaseSize", { size: Math.max(catSize + num, 0) });
+  };
+
+  const setSizePercentage = (percentage) => {
+    setCatSize(percentage);
+    addToHistory("setSizePercentage", { size: percentage });
+  };
 
   return (
     <CatContext.Provider
@@ -113,6 +142,9 @@ export const CatProvider = ({ children }) => {
         position,
         rotation,
         message,
+        isVisible,
+        catSize,
+        setPosition,
         moveCat,
         rotateCat,
         moveCatBack,
@@ -121,6 +153,10 @@ export const CatProvider = ({ children }) => {
         sayForSeconds,
         think,
         replayAction,
+        toggleVisibility,
+        increaseSize,
+        setSizePercentage,
+        moveToInitialPosition
       }}
     >
       {children}
